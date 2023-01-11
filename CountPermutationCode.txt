@@ -1,0 +1,46 @@
+import java.lang.*;
+import java.util.*;
+ 
+public class Main
+{
+    public static int m=1000000007;
+    public static int countPermutation(int n) {
+        long result =0;
+        char ch[]={'a','e','i','o','u'};
+ 
+        for(int i=0;i<5;i++)
+        {
+          result=(result+solve(n-1,ch[i]))%m;
+        }
+        return (int)result;
+    }
+    public static long solve(int p,char ch)
+    {
+        //base condition
+        if(p==0)
+        {
+            return 1;
+        }
+        long ans=0;
+        switch(ch)
+        {
+            case 'a': ans=(solve(p-1,'e'))%m;
+                break;
+            case 'e': ans=(solve(p-1,'a')+solve(p-1,'i'))%m;
+                break;
+            case 'i': ans=(solve(p-1,'a')+solve(p-1,'e')+solve(p-1,'o')+solve(p-1,'u'))%m;
+                break;
+            case 'o': ans=(solve(p-1,'i')+solve(p-1,'u'))%m;
+                break;
+            case 'u':ans=(solve(p-1,'a'))%m;
+                break;
+        }
+        return ans;
+    }
+public static void main(String[] args) {
+Scanner sc=new Scanner(System.in);
+int n=sc.nextInt();
+int result=countPermutation(n);
+System.out.println("Output : " + result);
+}
+}
